@@ -1,10 +1,13 @@
+// @ts-check
+
 import fastifyStatic from '@fastify/static';
 import path from 'path';
 import Pug from 'pug';
 import pointOfView from '@fastify/view';
-import websocketPlugin from '@fastify/websocket';
+import fastifySocketIo from 'fastify-socket.io';
 import fastifyJwt from '@fastify/jwt';
 import { fileURLToPath } from 'url';
+import createError from 'http-errors';
 import routes from './routes.js';
 import webpackConfig from '../webpack.config.cjs';
 
@@ -21,11 +24,11 @@ const setupStatic = (app) =>
 const setupJwt = (app) =>
     app
         .register(fastifyJwt, { secret: 'supersecret' })
-        .decorate('authenticate', async function (request, reply) {
+        .decorate('authenticate', async (request, reply) => {
             try {
                 await request.jwtVerify();
-            } catch (err) {
-                reply.send(err);
+            } catch (_err) {
+                reply.send(new createError.Unauthorized());
             }
         });
 
@@ -47,8 +50,9 @@ const setupPointOfView = (app) => {
 export default async (fastify, options) => {
     setupStatic(fastify);
     setupJwt(fastify);
-    fastify.register(websocketPlugin);
     setupPointOfView(fastify);
+    await fastify.register(fastifySocketIo);
     routes(fastify, options.state || {});
+
     return fastify;
 };

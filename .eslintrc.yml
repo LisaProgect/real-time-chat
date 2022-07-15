@@ -2,9 +2,11 @@ root: true
 
 plugins:
     - functional
+    - import
 
 extends:
     - airbnb
+    - 'plugin:import/recommended'
     - 'plugin:functional/external-recommended'
     - 'plugin:functional/recommended'
     - prettier
@@ -34,3 +36,13 @@ rules:
     functional/functional-parameters: 0
     functional/no-try-statement: 0
     functional/no-throw-statement: 0
+    no-underscore-dangle: [2, { 'allow': ['__filename', '__dirname'] }]
+    react/jsx-props-no-spreading: [2, { 'html': 'ignore' }]
+    react/function-component-definition:
+        [
+            2,
+            {
+                'namedComponents': 'arrow-function',
+                'unnamedComponents': 'function-expression',
+            },
+        ]
