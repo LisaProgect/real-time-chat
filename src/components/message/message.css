@@ -1,0 +1,11 @@
+.message {
+    @apply rounded-md p-2 w-1/2 bg-indigo-400 text-white;
+}
+
+.own {
+    @apply justify-end pr-2;
+}
+
+.own .message {
+    @apply bg-white text-slate-700;
+}
