@@ -48,6 +48,28 @@ export default (app, defaultState = {}) => {
         reply.send({ token, userName });
     });
 
+    app.post('/api/signup', async (req, reply) => {
+        const userName = _.get(req, 'body.userName');
+        const password = _.get(req, 'body.password');
+
+        const user = state.users.find((u) => u.userName === userName);
+
+        if (user) {
+            reply.send(new Conflict());
+        }
+
+        const newUser = { id: getNextId, userName, password };
+
+        state.users.push(newUser);
+
+        const token = app.jwt.sign({ userId: newUser.id });
+
+        reply
+            .code(201)
+            .headers({ 'Content-Type': 'application/json; charset=utf-8' })
+            .send({ token, userName });
+    });
+
     app.get('*', (_req, reply) => {
         reply.view('index');
     });

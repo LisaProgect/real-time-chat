@@ -5,11 +5,11 @@ import AuthService from '../services/auth.service.js';
 
 const user = JSON.parse(localStorage.getItem('user'));
 
-export const login = createAsyncThunk(
-    'auth/login',
+const register =
+    (service) =>
     async ({ userName, password }, thunkAPI) => {
         try {
-            const data = await AuthService.login(userName, password);
+            const data = await service(userName, password);
             return { user: data };
         } catch (error) {
             const message =
@@ -21,7 +21,16 @@ export const login = createAsyncThunk(
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         }
-    }
+    };
+
+export const login = createAsyncThunk(
+    'auth/login',
+    register(AuthService.login)
+);
+
+export const signup = createAsyncThunk(
+    'auth/signup',
+    register(AuthService.signup)
 );
 
 export const logout = createAsyncThunk('auth/logout', async () => {
@@ -47,6 +56,14 @@ const authSlice = createSlice({
                 state.user = null;
             })
             .addCase(logout.fulfilled, (state) => {
+                state.isLoggedIn = false;
+                state.user = null;
+            })
+            .addCase(signup.fulfilled, (state, action) => {
+                state.isLoggedIn = true;
+                state.user = action.payload.user;
+            })
+            .addCase(signup.rejected, (state) => {
                 state.isLoggedIn = false;
                 state.user = null;
             });
