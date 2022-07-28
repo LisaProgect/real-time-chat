@@ -1,8 +1,9 @@
 export default {
     translation: {
         Submit: 'Submit',
-        'Log in': 'Log in',
-        'Sign up': 'Sign up',
+        logIn: 'Log in',
+        signUp: 'Sign up',
+        logOut: 'Log Out',
         'Sign in to your account': 'Sign in to your account',
         userName: 'User Name',
         password: 'Password',

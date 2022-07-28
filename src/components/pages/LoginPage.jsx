@@ -48,9 +48,11 @@ const LoginPage = () => {
         },
     });
 
-    if (isLoggedIn) {
-        navigate(routes.mainPage);
-    }
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate(routes.mainPage);
+        }
+    }, [isLoggedIn, navigate]);
 
     return (
         <div className="bg-gray-100 h-screen">
