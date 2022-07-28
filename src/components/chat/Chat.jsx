@@ -1,5 +1,5 @@
 import React from 'react';
-import Message from '../message';
+import { Message } from '../message';
 import { Form, SubmitButton, Input } from '../form';
 
 const messageItems = [
@@ -45,20 +45,20 @@ const messageItems = [
     },
 ];
 const Chat = () => (
-    <div className="max-w-3xl mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16">
-        <div className="flex-auto bg-gray-100">
+    <>
+        <div className="h-screen bg-gray-100">
             {messageItems.map(({ own, message }, index) => (
                 <Message key={index} own={own} message={message} />
             ))}
         </div>
         <Form
             image={false}
-            className="sticky bottom-0 flex p-2 items-end bg-gray-200 z-40"
+            className="sticky bottom-0 flex p-2 items-end bg-gray-200 z-19"
         >
             <Input type="text" />
             <SubmitButton className="my-3">Submit</SubmitButton>
         </Form>
-    </div>
+    </>
 );
 
 export default Chat;

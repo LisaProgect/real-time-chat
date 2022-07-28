@@ -1,11 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import routes from '../routes';
 
-const ItemLink = ({ children, route }) => (
-    <Link to={route} className="hover:text-sky-500 dark:hover:text-sky-400 p-2">
-        {children}
-    </Link>
+const ItemLink = ({ children, route }) => {
+    const { t } = useTranslation();
+    return (
+        <Link
+            to={route}
+            className="hover:text-sky-500 dark:hover:text-sky-400 p-2"
+        >
+            {t(children)}
+        </Link>
+    );
+};
+
+const Image = () => (
+    <img
+        className="mx-auto h-8 w-auto"
+        src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+        alt="Workflow"
+    />
 );
 
 const Navbar = () => (
@@ -17,11 +33,7 @@ const Navbar = () => (
                         to={routes.mainPage}
                         className="mr-3 flex w-[2.0625rem] overflow-hidden md:w-auto"
                     >
-                        <img
-                            className="mx-auto h-8 w-auto"
-                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                            alt="Workflow"
-                        />
+                        <Image />
                         <p className="pl-5 font-medium text-xl">RealTimeChat</p>
                     </Link>
                     <div className="relative lg:flex items-center ml-auto">

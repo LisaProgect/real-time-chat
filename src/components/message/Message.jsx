@@ -1,5 +1,6 @@
 import React from 'react';
 import { format } from 'timeago.js';
+
 import { IconUser } from '../users';
 import './message.css';
 

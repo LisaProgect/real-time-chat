@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { AngleLeft, UserGroup } from '../svg';
 import Channel from '../channels';
 import { Users } from '../users';
+import Chat from '../chat';
 
 const MainPage = () => (
     <>
@@ -22,10 +24,16 @@ const MainPage = () => (
                 <UserGroup />
             </div>
         </div>
-        <div className="flex justify-between h-screen">
-            <Channel />
-
-            <Users />
+        <div className="max-w-8xl mx-auto text-slate-700">
+            <div className="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19.5rem] pb-10 px-8 overflow-y-auto">
+                <Channel />
+            </div>
+            <div className="lg:pl-[12rem] max-w-5xl xl:pr-[11rem] mx-auto">
+                <Chat />
+            </div>
+            <div className="fixed bg-white z-20 top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[19.5rem] overflow-y-auto hidden xl:block">
+                <Users />
+            </div>
         </div>
     </>
 );

@@ -1,5 +1,5 @@
 import React from 'react';
-import IconUser from './IconUser.jsx';
+import IconUser from '../users/IconUser.jsx';
 
 const users = [{ name: 'Uasfadf' }, { name: 'asdfa' }, { name: 'asdfasdf' }];
 const Users = () => (

@@ -1,13 +1,18 @@
 import '../assets/style.css';
+import './i18n.js';
 
 import 'core-js/stable/index';
 import React from 'react';
-
+import { Provider } from 'react-redux';
 import * as ReactDOM from 'react-dom/client';
-import App from './components/App.jsx';
 
-if (process.env.NODE_ENV !== 'production') {
-    localStorage.debug = 'debug:*';
-}
+import store from './store';
+import App from './App.jsx';
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.StrictMode>
+);

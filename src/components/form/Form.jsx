@@ -1,11 +1,14 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-const Title = ({ children }) => (
-    <h2 className="my-6 text-center text-3xl font-extrabold text-gray-900">
-        {children}
-    </h2>
-);
-
+const Title = ({ children }) => {
+    const { t } = useTranslation();
+    return (
+        <h2 className="my-6 text-center text-3xl font-extrabold text-gray-900">
+            {t(children)}
+        </h2>
+    );
+};
 const Image = () => (
     <img
         className="mx-auto h-12 w-auto"
