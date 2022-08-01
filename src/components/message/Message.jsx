@@ -4,13 +4,17 @@ import { format } from 'timeago.js';
 import { IconUser } from '../users';
 import './message.css';
 
-const Message = ({ message, own }) => (
+const Message = ({ message, own, user, createAt }) => (
     <div className={own ? 'flex  my-3 own' : 'flex  my-3 '}>
-        <IconUser name={message.user} />
-        <div className="message">
-            <p>{message.text}</p>
+        <div className="flex flex-col items-center text-clip">
+            <IconUser name={user} />
+            <span className="text-xs">{user}</span>
+        </div>
+
+        <div className="message break-words">
+            <p>{message}</p>
             <span className="text-xs pt-3 italic block">
-                {format(message.createAt)}
+                {format(createAt)}
             </span>
         </div>
     </div>

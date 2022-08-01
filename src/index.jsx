@@ -6,7 +6,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import * as ReactDOM from 'react-dom/client';
 
-import store from './store';
+import store from './store.js';
 import App from './App.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

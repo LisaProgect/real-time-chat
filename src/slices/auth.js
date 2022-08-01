@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
-import { setMessage } from './message.js';
 import AuthService from '../services/auth.service.js';
+import { refreshStatus } from './messages.js';
 
 const user = JSON.parse(localStorage.getItem('user'));
 
@@ -10,6 +11,7 @@ const register =
     async ({ userName, password }, thunkAPI) => {
         try {
             const data = await service(userName, password);
+            thunkAPI.dispatch(refreshStatus());
             return { user: data };
         } catch (error) {
             const message =
@@ -18,7 +20,7 @@ const register =
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
-            thunkAPI.dispatch(setMessage(message));
+            toast.error(message);
             return thunkAPI.rejectWithValue();
         }
     };

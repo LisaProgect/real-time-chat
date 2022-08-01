@@ -19,7 +19,16 @@ const Input = ({ name, children, touched, error, ...rest }) => {
     return (
         <div className="flex flex-col w-full">
             {children ? <Label id={name}>{children}</Label> : ''}
-            <input className={clazz} id={name} {...rest} />
+            <input
+                className={clazz}
+                id={name}
+                {...rest}
+                type={
+                    name === 'password' || name === 'confirmPassword'
+                        ? 'password'
+                        : 'text'
+                }
+            />
             {touched && error ? (
                 <div className="text-sm text-red-600 pb-2">{t(error)}</div>
             ) : null}

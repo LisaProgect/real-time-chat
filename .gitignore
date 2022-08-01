@@ -1,6 +1,7 @@
 node_modules
 dist
 .vscode
+*.code-workspace
 
 # dependencies
 /node_modules

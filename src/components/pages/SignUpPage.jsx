@@ -5,8 +5,6 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
-import { clearMessage } from '../../slices/message.js';
-import { ErrorMessage } from '../message';
 import { Form, SubmitButton, Input, Container } from '../form';
 import { signup } from '../../slices/auth.js';
 import Spinner from '../spinner/Spinner.jsx';
@@ -15,15 +13,10 @@ import routes from '../../routes';
 const SignUpPage = () => {
     const [loading, setLoading] = useState(false);
     const { isLoggedIn } = useSelector((state) => state.auth);
-    const { message } = useSelector((state) => state.message);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { t } = useTranslation();
-
-    useEffect(() => {
-        dispatch(clearMessage());
-    }, [dispatch, isLoggedIn]);
 
     const initialValues = {
         userName: '',
@@ -68,36 +61,33 @@ const SignUpPage = () => {
             {loading ? (
                 <Spinner />
             ) : (
-                <>
-                    {message && <ErrorMessage message={message} />}
-                    <Form
-                        className="flex flex-col"
-                        title="Sign in to your account"
-                        onReset={formik.handleReset}
-                        onSubmit={formik.handleSubmit}
-                    >
-                        {Object.keys(initialValues).map((value) => (
-                            <Input
-                                name={value}
-                                key={value}
-                                touched={formik.touched[value]}
-                                error={formik.errors[value]}
-                                onBlur={formik.handleBlur}
-                                value={formik.values[value]}
-                                onChange={formik.handleChange}
-                            >
-                                {value}
-                            </Input>
-                        ))}
-                        <SubmitButton
-                            type="submit"
-                            className="btn btn-primary btn-block"
-                            disabled={loading}
+                <Form
+                    className="flex flex-col"
+                    title="Sign in to your account"
+                    onReset={formik.handleReset}
+                    onSubmit={formik.handleSubmit}
+                >
+                    {Object.keys(initialValues).map((value) => (
+                        <Input
+                            name={value}
+                            key={value}
+                            touched={formik.touched[value]}
+                            error={formik.errors[value]}
+                            onBlur={formik.handleBlur}
+                            value={formik.values[value]}
+                            onChange={formik.handleChange}
                         >
-                            SignUp
-                        </SubmitButton>
-                    </Form>
-                </>
+                            {value}
+                        </Input>
+                    ))}
+                    <SubmitButton
+                        type="submit"
+                        className="btn btn-primary btn-block"
+                        disabled={loading}
+                    >
+                        SignUp
+                    </SubmitButton>
+                </Form>
             )}
         </Container>
     );

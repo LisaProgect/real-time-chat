@@ -5,13 +5,15 @@ const { Unauthorized, Conflict } = createError;
 const getNextId = () => Number(_.uniqueId());
 
 const buildState = (defaultState) => {
+    const generalChannelId = getNextId();
+
     const state = {
         channels: [
-            { id: getNextId(), name: 'general', removable: false },
+            { id: generalChannelId, name: 'general', removable: false },
             { id: getNextId(), name: 'random', removable: false },
         ],
         messages: [],
-        currentChannelId: 103,
+        currentChannelId: generalChannelId,
         users: [
             { id: 1, userName: 'admin', password: 'admin' },
             { id: 2, userName: 'admin1', password: 'admin1' },
@@ -30,9 +32,21 @@ const buildState = (defaultState) => {
 
 export default (app, defaultState = {}) => {
     const state = buildState(defaultState);
-    // app.io.on('connection', (socket) => {
-    //     console.log({ 'socket.id': socket.id });
-    // });
+
+    app.io.on('connection', (socket) => {
+        console.log({ 'socket.id': socket.id });
+
+        socket.on('newMessage', (message) => {
+            const messageWithId = {
+                ...message,
+                id: getNextId(),
+                createdAt: new Date(),
+            };
+            state.messages.push(messageWithId);
+            app.io.emit('newMessage', messageWithId);
+        });
+    });
+
     app.post('/api/login', async (req, reply) => {
         const userName = _.get(req, 'body.userName');
         const password = _.get(req, 'body.password');
@@ -43,9 +57,11 @@ export default (app, defaultState = {}) => {
             reply.send(new Unauthorized());
         }
 
-        const token = app.jwt.sign({ userId: user.id });
+        const userId = user.id;
 
-        reply.send({ token, userName });
+        const token = app.jwt.sign({ userId });
+
+        reply.send({ token, userName, userId });
     });
 
     app.post('/api/signup', async (req, reply) => {
@@ -58,17 +74,35 @@ export default (app, defaultState = {}) => {
             reply.send(new Conflict());
         }
 
-        const newUser = { id: getNextId, userName, password };
+        const userId = getNextId();
+
+        const newUser = { id: userId, userName, password };
 
         state.users.push(newUser);
 
-        const token = app.jwt.sign({ userId: newUser.id });
+        const token = app.jwt.sign({ userId });
 
         reply
             .code(201)
             .headers({ 'Content-Type': 'application/json; charset=utf-8' })
-            .send({ token, userName });
+            .send({ token, userName, userId });
     });
+
+    app.get(
+        '/api/data',
+        { onRequest: [app.authenticate] },
+        (request, reply) => {
+            const user = state.users.find((u) => u.id === request.user.userId);
+
+            if (!user) {
+                reply.send(new Unauthorized());
+            }
+
+            reply
+                .headers({ 'Content-Type': 'application/json; charset=utf-8' })
+                .send(_.omit(state, 'users'));
+        }
+    );
 
     app.get('*', (_req, reply) => {
         reply.view('index');

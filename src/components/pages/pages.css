@@ -1,0 +1,7 @@
+.channels > .channel:nth-child(1) {
+    display: block;
+}
+
+.channels > .user:nth-last-child(1) {
+    display: block;
+}
