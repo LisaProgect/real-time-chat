@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 
-import { Message } from '../message';
+import Message from '../message';
 import { Form, SubmitButton, Input } from '../form';
 import { ConnectionContext } from '../../contexts/ConnectionContext.jsx';
 import { selectCurrentChannel } from '../../slices/channels.js';

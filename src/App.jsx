@@ -8,6 +8,7 @@ import {
     NoMatchPage,
     SignUpPage,
 } from './components/pages';
+import Modal from './components/modal/Modal.jsx';
 import Navbar from './components/Navbar.jsx';
 import routes from './routes.js';
 import ErrorBoundary from './components/error-boundary/ErrorBoundary.jsx';
@@ -19,6 +20,7 @@ const App = () => (
             <ConnectionProvider>
                 <Navbar />
                 <ToastContainer />
+                <Modal />
                 <Routes>
                     <Route
                         exact

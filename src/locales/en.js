@@ -14,5 +14,12 @@ export default {
         Unauthorized: 'A user does not exist',
         notSame: 'Passwords are not the same',
         confirmPassword: 'Confirm password',
+        'connection error': 'connection error',
+        'channel created': 'create channel',
+        'channel removed': 'channel removed',
+        'Create new channel': 'Create new channel',
+        'Channel Name': 'Channel Name',
+        'Update channel': 'Update channel',
+        'channel renamed': 'channel renamed',
     },
 };

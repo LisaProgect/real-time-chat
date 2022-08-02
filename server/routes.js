@@ -34,8 +34,6 @@ export default (app, defaultState = {}) => {
     const state = buildState(defaultState);
 
     app.io.on('connection', (socket) => {
-        console.log({ 'socket.id': socket.id });
-
         socket.on('newMessage', (message) => {
             const messageWithId = {
                 ...message,
@@ -44,6 +42,42 @@ export default (app, defaultState = {}) => {
             };
             state.messages.push(messageWithId);
             app.io.emit('newMessage', messageWithId);
+        });
+
+        socket.on('newChannel', (channel) => {
+            const channelWithId = {
+                ...channel,
+                id: getNextId(),
+                removable: true,
+            };
+            state.channels.push(channelWithId);
+            app.io.emit('newChannel', channelWithId);
+        });
+
+        socket.on('removeChannel', ({ id }) => {
+            const channelId = Number(id);
+
+            const channel = state.channels.find((c) => c.id === channelId);
+            if (channel.removable) {
+                state.channels = state.channels.filter(
+                    (c) => c.id !== channelId
+                );
+                state.messages = state.messages.filter(
+                    (m) => m.channel !== channelId
+                );
+                app.io.emit('removeChannel', { id: channelId });
+            }
+        });
+
+        socket.on('renameChannel', ({ id, name }) => {
+            const channelId = Number(id);
+
+            const channel = state.channels.find((c) => c.id === channelId);
+
+            if (channel) {
+                channel.name = name;
+                app.io.emit('renameChannel', channel);
+            }
         });
     });
 

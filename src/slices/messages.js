@@ -19,7 +19,7 @@ const initialState = messagesAdapter.getInitialState({
 
 export const fetchMessages = createAsyncThunk(
     'messages/fetchMessages',
-    async (_, thunkAPI) => {
+    async (__, thunkAPI) => {
         try {
             const { messages, channels, currentChannelId } =
                 await DataService.getData();

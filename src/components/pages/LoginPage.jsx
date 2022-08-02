@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
 
 import { Form, SubmitButton, Input, Container } from '../form';
 import { login } from '../../slices/auth.js';
@@ -13,6 +14,7 @@ import routes from '../../routes';
 const LoginPage = () => {
     const [loading, setLoading] = useState(false);
     const { isLoggedIn } = useSelector((state) => state.auth);
+    const { t } = useTranslation();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,8 +27,8 @@ const LoginPage = () => {
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object({
-            userName: Yup.string().required('This field is required!'),
-            password: Yup.string().required('This field is required!'),
+            userName: Yup.string().required(t('required')),
+            password: Yup.string().required(t('required')),
         }),
         onSubmit: ({ userName, password }) => {
             setLoading(true);
