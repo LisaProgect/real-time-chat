@@ -1,5 +1,5 @@
 start-backend:
-	npm run start-backend --watch --verbose-watch
+	npm run start --watch --verbose-watch
 
 start-frontend:
 	npx webpack serve
