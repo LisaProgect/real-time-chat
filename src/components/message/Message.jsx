@@ -1,7 +1,7 @@
 import React from 'react';
 import { format } from 'timeago.js';
 
-import { IconUser } from '../users';
+import { IconUser } from '../icons';
 import './message.css';
 
 const Message = ({ message, own, user, createAt }) => (

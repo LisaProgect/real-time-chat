@@ -41,7 +41,7 @@ const Chat = ({ currentUser }) => {
 
     return (
         <>
-            <div className="h-full min-h-screen p-2 bg-gray-100">
+            <div className="h-full mt-16 min-h-screen p-2 bg-gray-100">
                 {messageForChannel &&
                     messageForChannel.map(
                         ({ user, message, id, createdAt }) => (

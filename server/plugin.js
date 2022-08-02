@@ -19,7 +19,10 @@ const rootPath = path.join(__dirname, '..');
 const isProduction = process.env.NODE_ENV === 'production';
 
 const setupStatic = (app) =>
-    app.register(fastifyStatic, { root: rootPath, prefix: '/assets/' });
+    app.register(fastifyStatic, {
+        root: path.join(rootPath, 'dist/public'),
+        prefix: '/assets/',
+    });
 
 const setupJwt = (app) =>
     app

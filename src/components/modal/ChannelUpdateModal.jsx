@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
 import { Form, Input, SubmitButton } from '../form';
 import Spinner from '../spinner/Spinner.jsx';
 import { ConnectionContext } from '../../contexts/ConnectionContext.jsx';
 import { selectChannelById } from '../../slices/channels';
+import validators from '../../validators.js';
 
 const ChannelUpdateModal = () => {
     const { renameChannel } = useContext(ConnectionContext);
@@ -21,9 +21,7 @@ const ChannelUpdateModal = () => {
         initialValues: {
             channelName: channel.name,
         },
-        validationSchema: Yup.object({
-            channelName: Yup.string().required(t('required')),
-        }),
+        validationSchema: validators(t, 'channel'),
         onSubmit: (values) => {
             renameChannel({ name: values.channelName, id: idChannel });
             setIsLoading(true);

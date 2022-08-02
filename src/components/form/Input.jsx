@@ -15,23 +15,16 @@ const Input = ({ name, children, touched, error, ...rest }) => {
     const clazz = `${
         touched && error ? 'input-error' : 'input'
     } border flex-1 block w-full rounded-md sm:text-sm text-sm my-3 py-2 px-2`;
+    const typeInput =
+        name === 'password' || name === 'confirmPassword' ? 'password' : 'text';
 
     return (
         <div className="flex flex-col w-full">
-            {children ? <Label id={name}>{children}</Label> : ''}
-            <input
-                className={clazz}
-                id={name}
-                {...rest}
-                type={
-                    name === 'password' || name === 'confirmPassword'
-                        ? 'password'
-                        : 'text'
-                }
-            />
-            {touched && error ? (
+            {children && <Label id={name}>{children}</Label>}
+            <input className={clazz} id={name} {...rest} type={typeInput} />
+            {touched && error && (
                 <div className="text-sm text-red-600 pb-2">{t(error)}</div>
-            ) : null}
+            )}
         </div>
     );
 };

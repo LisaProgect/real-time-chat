@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { AngleLeft, UserGroup } from '../svg';
+import { AngleLeft, UserGroup, Users } from '../icons';
 import Channel from '../channels';
-import { Users } from '../users';
 import Chat from '../chat';
 import { fetchMessages } from '../../slices/messages.js';
 import routes from '../../routes';

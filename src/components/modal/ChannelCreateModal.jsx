@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
 import { Form, Input, SubmitButton } from '../form';
 import Spinner from '../spinner/Spinner.jsx';
 import { ConnectionContext } from '../../contexts/ConnectionContext.jsx';
+import validators from '../../validators.js';
 
 const ChannelCreateModal = () => {
     const { addNewChannel } = useContext(ConnectionContext);
@@ -17,9 +17,7 @@ const ChannelCreateModal = () => {
         initialValues: {
             channelName: '',
         },
-        validationSchema: Yup.object({
-            channelName: Yup.string().required(t('required')),
-        }),
+        validationSchema: validators(t, 'channel'),
         onSubmit: (values) => {
             addNewChannel({ name: values.channelName });
             setIsLoading(true);

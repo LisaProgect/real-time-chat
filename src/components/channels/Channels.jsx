@@ -8,7 +8,7 @@ import {
     setCurrentChannel,
 } from '../../slices/channels.js';
 import { showModal } from '../../slices/modals.js';
-import { CirclePlus, Trash, Pencil } from '../svg';
+import { CirclePlus, Trash, Pencil } from '../icons';
 
 const Item = ({ current, children, isRemove, id }) => {
     const clazz = 'pl-4 border-l';

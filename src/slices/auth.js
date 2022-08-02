@@ -30,7 +30,7 @@ export const login = createAsyncThunk(
     register(AuthService.login)
 );
 
-export const signup = createAsyncThunk(
+export const signUp = createAsyncThunk(
     'auth/signup',
     register(AuthService.signup)
 );
@@ -61,11 +61,11 @@ const authSlice = createSlice({
                 state.isLoggedIn = false;
                 state.user = null;
             })
-            .addCase(signup.fulfilled, (state, action) => {
+            .addCase(signUp.fulfilled, (state, action) => {
                 state.isLoggedIn = true;
                 state.user = action.payload.user;
             })
-            .addCase(signup.rejected, (state) => {
+            .addCase(signUp.rejected, (state) => {
                 state.isLoggedIn = false;
                 state.user = null;
             });
