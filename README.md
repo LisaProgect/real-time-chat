@@ -1,6 +1,7 @@
-# 🚀 Welcome to my project 'real time chat'
+# 🚀 Welcome to my project ['real time chat'](https://hidden-temple-91668.herokuapp.com/login)
 
 [![Node.js CI](https://github.com/LisaProgect/real-time-chat/actions/workflows/node.js.yml/badge.svg)](https://github.com/LisaProgect/real-time-chat/actions/workflows/node.js.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e5e0c436eacf9ed87d5f/maintainability)](https://codeclimate.com/github/LisaProgect/real-time-chat/maintainability)
 
 This project has been created using **webpack-cli** and **fastify**, you can now run
 
