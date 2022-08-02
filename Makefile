@@ -7,8 +7,8 @@ start-frontend:
 install:
 	npm ci
 
-buid:
-	npm run buid
+build:
+	npm run build
 
 lint:
 	npx eslint . --ext js,jsx

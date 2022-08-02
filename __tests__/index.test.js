@@ -1,5 +1,6 @@
 import fastify from 'fastify';
 import { test, expect } from '@jest/globals';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import pino from 'pino';
 import pretty from 'pino-pretty';
 
